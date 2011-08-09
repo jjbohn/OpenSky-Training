@@ -10,4 +10,3 @@ product_show:
     pattern: /products/{product_slug}
     defaults:
         _controller: MainBundle:Default:show
-    requirements: { _method: get, 'product_slug': '[\w\d\-]{1,32}'}
