@@ -4,9 +4,18 @@ namespace Train\MainBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Train\MainBundle\Entity\Product;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadProductData implements FixtureInterface
+class LoadProductData implements FixtureInterface, ContainerAwareInterface
 {
+    private $container;
+    
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+    
     public function load($em)
     {
         $product_a = new Product();
