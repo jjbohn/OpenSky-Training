@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
+ * @ORM\Entity(repositoryClass="Train\MainBundle\Entity\ProductRepository")
  */
 class Product
 {
@@ -83,5 +84,15 @@ class Product
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set created
+     *
+     * @param datetime $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
 }

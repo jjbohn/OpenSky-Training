@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block title 'My Products' %}
+
+{% block stylesheets %}
+<style type="text/css">
+.odd {
+    background-color:red;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<table>
+    {% for product in products %}
+        <tr{% if loop.index is odd %} class="odd"{% endif %}>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name|upper }}</td>     
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+        </tr>
+    {% else %}    
+        <tr>
+            <td>No Products Found!</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

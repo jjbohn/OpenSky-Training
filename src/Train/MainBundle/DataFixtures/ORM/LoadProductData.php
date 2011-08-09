@@ -29,7 +29,7 @@ class LoadProductData implements FixtureInterface, ContainerAwareInterface
         $product_b->setPrice(60);
         
         $product_c = new Product();
-        $product_c->setDescription('A super expensive sppon.');
+        $product_c->setDescription('A super expensive spoon.');
         $product_c->setName('T-Shirt 1');
         $product_c->setPrice(120);
         
