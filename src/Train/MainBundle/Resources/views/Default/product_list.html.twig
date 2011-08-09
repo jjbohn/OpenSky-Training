@@ -14,7 +14,7 @@
 <table>
     {% for product in products %}
         <tr{% if loop.index is odd %} class="odd"{% endif %}>
-            <td>{{ product.id }}</td>
+            <td><a href="{{ path('product_show', { 'product_slug': product.slug }) }}">{{ product.id }}</a></td>
             <td>{{ product.name|upper }}</td>     
             <td>{{ product.description }}</td>
             <td>{{ product.price }}</td>
