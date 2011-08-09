@@ -29,14 +29,6 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getEntityManager();
         
-//        $query = $em->createQueryBuilder()
-//            ->select('p')
-//            ->from('MainBundle:Product', 'p')
-//            ->orderBy('p.created')
-//            ->getQuery();
-//                
-//        $products = $query->getResult();
-        
         $products = $em->getRepository('MainBundle:Product')->findAllNewestFirst();
 
         return $this->render('MainBundle:Default:product_list.html.twig', array(
