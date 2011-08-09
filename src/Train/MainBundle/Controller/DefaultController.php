@@ -24,4 +24,21 @@ class DefaultController extends Controller
             'name' => $name
         ));
     }
+
+    public function showAction($product_slug)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $product = $em
+            ->getRepository('MainBundle:Product')
+            ->findOneBySlug($product_slug);
+
+        if ($product === null) {
+            $str = sprintf('No product matched "%s"',$product_slug);
+            throw $this->createNotFoundException($str);
+        }
+
+        return $this->render('MainBundle:Default:show.html.twig', array(
+            'product' => $product
+        ));
+    }
 }

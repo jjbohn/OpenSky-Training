@@ -20,8 +20,17 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Gedmo\Sluggable(slugField="slug")
      */
     protected $name;
+
+    /**
+     * @ORM\Column(type="string", length=32, unique=true)
+     * @Gedmo\Slug
+     *
+     * @var string
+     */
+    protected $slug;
 
     /**
      * @ORM\Column(type="decimal", scale=2)
