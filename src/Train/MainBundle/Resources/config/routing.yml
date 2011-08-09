@@ -1,0 +1,7 @@
+homepage:
+    pattern:  /{name}
+    defaults: 
+        _controller: MainBundle:Default:index
+        name: John
+    requirements:
+        name: Bob
