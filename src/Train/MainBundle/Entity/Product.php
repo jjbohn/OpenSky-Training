@@ -3,6 +3,7 @@
 namespace Train\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -31,7 +32,14 @@ class Product
      * @ORM\Column(type="text")
      */
     protected $description;
-    
+
+    /**
+     * When the Product was created
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    protected $created;
+
     public function getId()
     {
         return $this->id;
@@ -71,4 +79,9 @@ class Product
     {
         $this->description = $description;
     }   
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
 }
