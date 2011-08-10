@@ -9,20 +9,9 @@ use Doctrine\ORM\EntityManager;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
-    { 
-        $product = new Product();
-        $product->setDescription('A description');
-        $product->setName('The Shirt');
-        $product->setPrice(50);
-        
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($product);
-        $em->flush();
-        
-        return $this->render('MainBundle:Default:index.html.twig', array(
-            'name' => $name
-        ));
+    public function indexAction()
+    {
+        return $this->render('MainBundle:Default:index.html.twig');
     }
 
     public function listAction()

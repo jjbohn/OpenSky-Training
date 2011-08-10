@@ -3,11 +3,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('/css/default.css') }}" />
+        {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% block navigation %}
+            <ul id="navigation">
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Product</a></li>
+            </ul>
+        {% endblock %}
+        <div id="main">
         {% block body %}{% endblock %}
+        </div>
+        
         {% block javascripts %}{% endblock %}
     </body>
 </html>
