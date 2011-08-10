@@ -11,7 +11,12 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('MainBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $categories = $em->getRepository('MainBundle:Category')->findAll();
+
+        return $this->render('MainBundle:Default:index.html.twig', array(
+            'categories' => $categories
+        ));
     }
 
     public function listAction()
@@ -41,4 +46,14 @@ class DefaultController extends Controller
             'product' => $product
         ));
     }
+
+    public function categoryAction($category_name)
+    {
+        // $em = $this->
+    }
+
+    // private function getEntityManager()
+    // {
+    //     $em = $
+    // }
 }

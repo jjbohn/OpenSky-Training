@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+$rootDir = dirname(__DIR__);
+
+system(sprintf('%s/app/console doctrine:schema:drop --force', $rootDir));
+system(sprintf('%s/app/console doctrine:schema:create', $rootDir));
+system(sprintf('%s/app/console doctrine:fixtures:load --append', $rootDir));
+
+echo("fixtures loaded.\n");
+?>

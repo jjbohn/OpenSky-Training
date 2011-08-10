@@ -4,6 +4,7 @@ namespace Train\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Train\MainBundle\Entity\Category;
 
 /**
  * @ORM\Entity
@@ -43,6 +44,12 @@ class Product
      */
     protected $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * 
+     */
+    protected $category;
+//@ORM\JoinColumn(name="category", referencedColumnName="id")
     /**
      * When the Product was created
      * @ORM\Column(type="datetime")
@@ -123,5 +130,13 @@ class Product
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @param Category $category
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
     }
 }

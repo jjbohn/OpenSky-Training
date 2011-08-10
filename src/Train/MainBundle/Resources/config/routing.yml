@@ -12,3 +12,8 @@ product_show:
     pattern: /products/{product_slug}
     defaults:
         _controller: MainBundle:Default:show
+
+# category_show:
+#     pattern: /category/{category_name}
+#     default:
+#         _controller: MainBundle:Default:category

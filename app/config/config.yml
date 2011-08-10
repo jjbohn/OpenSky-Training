@@ -2,6 +2,10 @@ imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
 
+# # D.I. Extension
+# main:
+#     foo: true
+
 framework:
     #esi:             ~
     #translator:      { fallback: en }

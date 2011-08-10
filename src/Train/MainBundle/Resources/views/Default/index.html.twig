@@ -2,4 +2,13 @@
 
 {% block body %}
 <h1>You're Home</h1>
+
+<h2>Categories:</h2>
+<ul> 
+{% for category in categories %}
+    <li>{{category.name}}</li>
+{% else %}
+    <li> No Categories Found </li>
+{% endfor %}
+</ul>
 {% endblock %}
