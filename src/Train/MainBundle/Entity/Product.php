@@ -139,4 +139,14 @@ class Product
     {
         $this->category = $category;
     }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -11,6 +11,18 @@ product_list:
     requirements:
         _format: html|json
 
+product_new:
+    pattern: /product/new
+    defaults:
+        _controller: MainBundle:Default:createProduct
+
+product_create:
+    pattern: /product/new
+    defaults:
+        _controller: MainBundle:Default:createProduct
+    requirements:
+        method: post
+
 product_show:
     pattern: /products/{product_slug}
     defaults:

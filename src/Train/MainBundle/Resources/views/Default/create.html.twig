@@ -1,0 +1,16 @@
+{% extends 'MainBundle:Default:base.html.twig' %}
+
+{% block body %}
+<form action="{{ path('product_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.category) }}
+
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>
+{% endblock %}

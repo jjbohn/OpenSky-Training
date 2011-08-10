@@ -2,11 +2,13 @@
 
 namespace Train\MainBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Train\MainBundle\Entity\Product;
-use Doctrine\ORM\EntityManager;
 
 class DefaultController extends Controller
 {
@@ -79,6 +81,57 @@ class DefaultController extends Controller
     public function categoryAction($category_name)
     {
         // $em = $this->
+    }
+
+    public function createProductAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $categories = $em->getRepository('MainBundle:Category')
+            ->findAll();
+
+        $product = new Product();
+
+        $form = $this->createFormBuilder($product)
+            ->add('name', 'text', array(
+                'required' => true,
+                'max_length' => 100,
+                'label' => 'Product Name',
+            ))
+            ->add('price', 'money', array(
+                'currency' => 'USD',
+                'required' => true,
+                'label' => 'Cost',
+            ))
+            ->add('description', 'textarea', array(
+                'required' => false,
+                'label' => 'Product Description',
+            ))
+            ->add('category', 'entity', array(
+                'class' => 'MainBundle:Category',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name');
+                }
+            ))
+            ->getForm();
+
+        if ($request->getMethod() === 'POST') {
+            // Persist the product
+            $form->bindRequest($request);
+
+            if ($form->isValid()) {
+                $em->persist($product);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+
+        return $this->render('MainBundle:Default:create.html.twig', array(
+            'form' => $form->createView()
+        ));
+        return new Response('create');
     }
 
     // private function getEntityManager()
