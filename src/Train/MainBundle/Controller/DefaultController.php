@@ -138,7 +138,7 @@ class DefaultController extends Controller
     {
         $manager = $this->get('report_manager');
         
-        return new Response($manager->generate());
+        return $this->renderResponse($manager->generate());
     }
     
     // private function getEntityManager()
