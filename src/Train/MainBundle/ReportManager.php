@@ -2,19 +2,19 @@
 
 namespace Train\MainBundle;
 
-use Doctrine\ORM\EntityManager;
+use Train\MainBundle\Entity\ProductRepository;
 use Symfony\Component\Templating\EngineInterface as TemplatingEngine;
 use Monolog\Logger;
 
 class ReportManager
 {
-    private $em;
+    private $repo;
     private $templating;
     private $logger;
     
-    public function __construct(EntityManager $em, TemplatingEngine $templating)
+    public function __construct(ProductRepository $repo, TemplatingEngine $templating)
     {
-        $this->em = $em;
+        $this->repo = $repo;
         $this->templating = $templating;
     }
     
@@ -25,7 +25,7 @@ class ReportManager
     
     public function generate()
     {
-        $products = $this->em->getRepository('MainBundle:Product')->findAll();
+        $products = $this->repo->findAll();
         
         if ( isset($this->logger) ) {
             $this->logger->addDebug('Made report for products.', array('products' => $products));

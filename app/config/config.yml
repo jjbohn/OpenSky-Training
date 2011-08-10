@@ -3,10 +3,16 @@ imports:
     - { resource: security.yml }
 
 services: 
+    product_repository:
+        class: Train\MainBundle\Entity\ProductRepository
+        factory_service: 'doctrine.orm.default_entity_manager'
+        factory_method: getRepository
+        arguments:
+            - Train\MainBundle\Entity\Product
     report_manager:
         class: Train\MainBundle\ReportManager
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@product_repository'
             - '@templating'
         calls:
             - [ setLogger, [ '@?logger' ] ]
