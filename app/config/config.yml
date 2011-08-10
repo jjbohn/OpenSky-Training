@@ -6,6 +6,11 @@ imports:
 # main:
 #     foo: true
 
+fos_user:
+    db_driver:      orm
+    user_class:     Train\MainBundle\Entity\User
+    firewall_name:  secured_area
+
 framework:
     #esi:             ~
     #translator:      { fallback: en }
