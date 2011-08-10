@@ -2,9 +2,15 @@ imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
 
-# # D.I. Extension
-# main:
-#     foo: true
+services: 
+    report_manager:
+        class: Train\MainBundle\ReportManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@templating'
+        calls:
+            - [ setLogger, [ '@?logger' ] ]
+         
 
 fos_user:
     db_driver:      orm

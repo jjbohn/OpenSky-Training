@@ -27,6 +27,11 @@ product_show:
     pattern: /products/{product_slug}
     defaults:
         _controller: MainBundle:Default:show
+        
+report_test:
+    pattern: /report
+    defaults:
+        _controller: MainBundle:Default:report
 
 # category_show:
 #     pattern: /category/{category_name}

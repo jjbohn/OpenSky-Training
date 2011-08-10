@@ -1,0 +1,12 @@
+<table>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>     
+            <td>{{ product.price }}</td>
+        </tr>
+    {% else %}    
+        <tr>
+            <td>No Products Found!</td>
+        </tr>
+    {% endfor %}
+</table>
