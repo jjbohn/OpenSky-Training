@@ -18,9 +18,9 @@ security:
                 provider: fos_userbundle
             #     check_path: /demo/secured/login_check
             #     login_path: /demo/secured/login
-            #logout:
-            #    path:   /demo/secured/logout
-            #    target: /demo/
+            logout:
+                path:   /logout
+                target: /
             anonymous: ~
             #http_basic:
             #   realm: "Secured Demo Area"
