@@ -4,9 +4,12 @@ homepage:
         _controller: MainBundle:Default:index
 
 product_list:
-    pattern: /products
+    pattern: /products.{_format}
     defaults:
         _controller: MainBundle:Default:list
+        _format: html
+    requirements:
+        _format: html|json
 
 product_show:
     pattern: /products/{product_slug}
