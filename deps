@@ -22,6 +22,10 @@
     git=http://github.com/doctrine/doctrine2.git
     version=2.1.0
 
+[FOSUserBundle]
+    git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
+    target=bundles/FOS/UserBundle
+
 [swiftmailer]
     git=http://github.com/swiftmailer/swiftmailer.git
     version=v4.1.0
