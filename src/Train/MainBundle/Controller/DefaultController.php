@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Train\MainBundle\Entity\Product;
 
@@ -98,9 +99,10 @@ class DefaultController extends Controller
 
     protected function doProductStuff(Product $product, Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $form = $this->createFormBuilder($product)
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        
+        
+        $form = $this->container->get('form.factory')->createBuilder('form', $product)
             ->add('name', 'text', array(
                 'required' => true,
                 'max_length' => 100,
@@ -131,15 +133,18 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 $em->persist($product);
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('homepage'));
+                
+                $url = $this->container->get('router')->generate('homepage');
+                $resp = new RedirectResponse($url);
+                
+                return $resp;
             }
         }
-
-        return $this->render('MainBundle:Default:create.html.twig', array(
+        
+        return $this->container->get('templating')->renderResponse('MainBundle:Default:create.html.twig', array(
             'form' => $form->createView()
         ));
-        return new Response('create');
+
     }
 
     public function reportAction()
@@ -149,8 +154,4 @@ class DefaultController extends Controller
         return new Response($manager->generate());
     }
     
-    // private function getEntityManager()
-    // {
-    //     $em = $
-    // }
 }
