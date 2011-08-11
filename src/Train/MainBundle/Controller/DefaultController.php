@@ -139,7 +139,7 @@ class DefaultController implements ContainerAwareInterface
                 
                 $url = $this->container->get('router')->generate('homepage');
                 $resp = new RedirectResponse($url);
-                                $this->get('session');
+                                $this->container->get('session');
                 
                 $this->container->get('session')
                     ->setFlash('notice', 'Product saved!');
