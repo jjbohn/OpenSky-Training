@@ -83,14 +83,22 @@ class DefaultController extends Controller
         // $em = $this->
     }
 
+    public function editProductAction($slug, Request $request)
+    {
+        $product = new Product(); // Would actually do a lookup
+        //$createProductAction($product);
+        return $this->doProductStuff($request,$product);
+    }
+
     public function createProductAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $categories = $em->getRepository('MainBundle:Category')
-            ->findAll();
-
         $product = new Product();
+        return $this->doProductStuff($product,$request);
+    }
+
+    protected function doProductStuff(Product $product, Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
 
         $form = $this->createFormBuilder($product)
             ->add('name', 'text', array(

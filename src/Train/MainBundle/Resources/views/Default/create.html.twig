@@ -4,10 +4,29 @@
 <form action="{{ path('product_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_errors(form) }}
 
-    {{ form_row(form.name) }}
-    {{ form_row(form.price) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.category) }}
+<div>
+    {{ form_label(form.name) }}
+    {{ form_errors(form.name) }}
+    {{ form_widget(form.name) }}
+</div>
+
+<div>
+    {{ form_label(form.price) }}
+    {{ form_errors(form.price) }}
+    {{ form_widget(form.price) }}
+</div>
+
+<div>
+    {{ form_label(form.description) }}
+    {{ form_errors(form.description) }}
+    {{ form_widget(form.description) }}
+</div>
+
+<div>
+    {{ form_label(form.category) }}
+    {{ form_errors(form.category) }}
+    {{ form_widget(form.category) }}
+</div>
 
     {{ form_rest(form) }}
 

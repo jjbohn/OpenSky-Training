@@ -4,12 +4,15 @@ namespace Train\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContext;
 use Train\MainBundle\Entity\Category;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="Train\MainBundle\Entity\ProductRepository")
+ * @Assert\Callback(methods={"isNameValid"})
  */
 class Product
 {
@@ -23,6 +26,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=100)
      * @Gedmo\Sluggable(slugField="slug")
+     * @Assert\NotBlank()
      */
     protected $name;
 
@@ -36,11 +40,16 @@ class Product
 
     /**
      * @ORM\Column(type="decimal", scale=2)
+     * @Assert\NotBlank()
+     * @Assert\Min(0)
+     * @Assert\Max(5000)
+     *
      */
     protected $price;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     protected $description;
 
@@ -49,7 +58,7 @@ class Product
      * 
      */
     protected $category;
-//@ORM\JoinColumn(name="category", referencedColumnName="id")
+
     /**
      * When the Product was created
      * @ORM\Column(type="datetime")
@@ -145,8 +154,27 @@ class Product
         return $this->category;
     }
 
+    /**
+     * @Assert\False(message="Name cannot be same as description")
+     */
+    public function isNameEqualDescription()
+    {
+        return ($this->name == $this->description);
+    }
+
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function isNameValid(ExecutionContext $context)
+    {
+        if ($this->name == 'Test')
+        {
+            $property_path = $context->getPropertyPath() . '.name';
+            $context->setPropertyPath($property_path);
+            $context->addViolation('This name sounds totally fake', array(), null);
+
+        }
     }
 }
