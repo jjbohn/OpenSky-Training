@@ -14,10 +14,11 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
         $categories = $em->getRepository('MainBundle:Category')->findAll();
 
-        return $this->render('MainBundle:Default:index.html.twig', array(
+        return $this->container->get('templating')
+            ->renderResponse('MainBundle:Default:index.html.twig', array(
             'categories' => $categories
         ));
     }
@@ -36,22 +37,18 @@ class DefaultController extends Controller
     
     public function listAction($_format)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
         
         $products = $em->getRepository('MainBundle:Product')->findAllNewestFirst();
 
         if($_format == 'html') {
-            return $this->render('MainBundle:Default:product_list.html.twig', array(
+            return $this->container->get('templating')->renderResponse('MainBundle:Default:product_list.html.twig', array(
                  'products' => $products  
             ));
         } elseif ($_format ==  'json') {
             $response = new Response();
             $response->setContent($this->parseProductToJson($products));
             return $response;
-            //return $this->render('MainBundle:Default:product_list.json.php', array(
-            //    'products' => $products
-            //));
-            
         } else {
             //throw $this->createNotFoundException('Invalid format requested');
             //$exp = new HttpException('415', 'Invalid format requested', null, array('Content-Type' => 'application/javascript') );
@@ -63,7 +60,7 @@ class DefaultController extends Controller
      
     public function showAction($product_slug)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
         $product = $em
             ->getRepository('MainBundle:Product')
             ->findOneBySlug($product_slug);
@@ -73,7 +70,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException($str);
         }
 
-        return $this->render('MainBundle:Default:show.html.twig', array(
+        return $this->container->get('templating')->renderResponse('MainBundle:Default:show.html.twig', array(
             'product' => $product
         ));
     }
@@ -132,6 +129,9 @@ class DefaultController extends Controller
                 $em->persist($product);
                 $em->flush();
 
+                $this->get('session')
+                    ->setFlash('notice', 'Product saved!');
+
                 return $this->redirect($this->generateUrl('homepage'));
             }
         }
@@ -144,7 +144,7 @@ class DefaultController extends Controller
 
     public function reportAction()
     {
-        $manager = $this->get('report_manager');
+        $manager = $this->container->get('report_manager');
         
         return new Response($manager->generate());
     }

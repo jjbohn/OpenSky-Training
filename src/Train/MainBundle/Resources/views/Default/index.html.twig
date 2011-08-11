@@ -3,6 +3,12 @@
 {% block body %}
 <h1>You're Home</h1>
 
+{% if app.session.hasFlash('notice') %}
+    <div class="flash-notice">
+        {{ app.session.flash('notice') }}
+    </div>
+{% endif %}
+
 <h2>Categories:</h2>
 <ul> 
 {% for category in categories %}
